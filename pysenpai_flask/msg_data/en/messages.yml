@@ -1,0 +1,137 @@
+createdb:
+  DbCreated: |-
+    Database creation was successful.
+  GenericErrorMsg: |-
+    An error occurred while creating the database.
+    {ename}: {emsg}
+  InitDB: |-
+    Initializing database...
+  NoFlaskApp: |-
+    The module {name} did not contain a Flask app object.
+  NoFlaskDb: |-
+    The module {name} did not contain a Flask SQLAlchemy object.
+  PopulateDB: |-
+    Populating DB....
+  PopulatingError: |-
+    Populating failed. Check that your model classes match the assignment.
+doctest:
+  DocumentParsed: |-
+    Document was parsed successfully.
+  DocumentTest: |-
+    Generating tests from document...
+  ExceptionInfo: |-
+    Request generation reported the following error:
+    {etype}: {emgs}
+  InvalidDocument: |-
+    Document was invalid. Reason:
+    {emsg}
+  LoadDocument: |-
+    Parsing document...
+  NoRequest: |-
+    Unable to generate request from the document.
+  ShowDocument: |-
+    Contents of the current document:
+    {doc}
+  TestAborted: |-
+    The checking was unable to to reach the next state. Error:
+    {{{{{{
+    {stderr}
+    }}}}}}
+  TestTarget: |-
+    Generating test from:
+    {keys}
+view:
+  AdditionalInfo: |-
+    The checker gave the following as additional information:
+  AdditionalTests: |-
+    Performing additional tests that may suggest cause for the error...
+  AttributeError: |-
+    The function was not found, or another kind of AttributeError occurred while calling the function.
+    Additional information:
+    {emsg}
+  CorrectMessage: |-
+    The function's output was correct.
+  CorrectResult: |-
+    The application's response was correct.
+  TargetName: |-
+    Testing route {name}...
+  GenericErrorMsg: |-
+    An error occurred while calling the function.
+    Additional information:
+    {ename}: {emsg}
+    Test the function on your computer to get more information.
+  IncorrectMessage: |-
+    The function's output was incorrect.
+  IncorrectResult: |-
+    The application's response was incorrect
+  IsNotFunction: |-
+    An object called {name} was found, but it was not a function.
+    Take care to not overwrite the function with another value in your main program!
+  MessageInfo: ""
+  OutputParseError: |-
+    Parsing the function's output for result values was not successful.
+    Check that your function uses the specified formatting when printing.
+    Reason provided by the checker:{reason}
+  OutputPatternInfo: ""
+  PrintExcLine: |-
+    Caused by line {lineno}:
+    {{{{{{{line}}}}}}}
+  PrintInputVector: |-
+    Using query string:
+    {inputs}
+  PrintReference: |-
+    Expected result: {ref}
+  PrintStudentOutput: |-
+    Response body:
+    {output}
+  PrintStudentResult: |-
+    Data parsed from your application's response:
+    {res}
+  PrintTestVector: |-
+    Request address:
+    {call}
+  PrintTestData: |-
+    Data used in the test:
+    {data}
+  RepeatingResult: |-
+    The function produced the same result twice in succession. This usually means the function is not reacting properly to arguments or inputs.
+    This is especially likely if this message pops up repeatedly.
+  SystemExit: |-
+    The program was terminated through the use of:
+    quit(), exit(), sys.exit(), raise SystemExit (etc.)
+    Your program needs to be implemented such a way that it doesn't need any of these.
+  TypeError: |-
+    The function expects an incorrect number of arguments. Alternatively another kind of TypeError occurred while calling the function.
+    Additional information:
+    {emsg}
+db:
+  CorrectAccept: |-
+    The database accepted a valid object.
+  CorrectReject: |-
+    The database rejected an invalid object.
+  IncorrectAccept: |-
+    The database accepted an invalid object.
+  IncorrectReject: |-
+    The database rejected a valid object.
+  ModelError: |-
+    An error in the model class prevented creation of test instances:
+    {emsg}.
+  PrintTestObject: |-
+    Object attributes:
+    {instance}
+  RejectReason: |-
+    Reject reason: {reason}
+  StartDbTest: |-
+    Testing created database...
+model:
+  CorrectFields: |-
+    The model class had all required fields.
+  MissingFields: |-
+    These fields were missing from the model:
+    {fields}
+  MissingModel: |-
+    Model class {name} was not found.
+  NotModel: |-
+    Class {name} was not a Model.
+  StartModelTest: |-
+    Testing model class {name} fields...

@@ -1,0 +1,120 @@
+createdb:
+  DbCreated: |-
+    Tietokannan luominen onnistui.
+  GenericErrorMsg: |-
+    Tietokannan luomisessa tapahtui poikkeus.
+    {ename}: {emsg}
+  InitDB: |-
+    Alustetaan tietokanta...
+  NoFlaskApp: |-
+    Moduulista {name} ei löytynyt Flask app -objektia.
+  NoFlaskDb: |-
+    Moduulista {name} ei löytynyt Flask SQLAlchemy -objektia.
+  PopulateDB: |-
+    Alustetaan tietokantaan lähtötilanne...
+  PopulatingError: |-
+    Alustus epäonnistui. Tarkista, että mallit vastaavat tehtävänantoa.
+doctest:
+  DocumentParsed: |-
+    Dokumentin parsinta onnistui.
+  DocumentTest: |-
+    Luodaan testit dokumentista...
+  ExceptionInfo: |-
+    Palvelinkutsun generointi antoi seuraavan virheviestin:
+    {etype}: {emgs}
+  InvalidDocument: |-
+    Dokumentti oli virheellinen. Syy:
+    {emsg}
+  LoadDocument: |-
+    Luetaan dokumentti...
+  NoRequest: |-
+    Palvelinkutsun generointi annetusta dokumentista ei onnistunut.
+  ShowDocument: |-
+    Käsiteltävän dokumentin sisältö:
+    {doc}
+  TestAborted: |-
+    Tarkistus ei pystynyt etenemään seuraavaan tilaan. Virhe:
+    {{{{{{
+    {stderr}
+    }}}}}}
+  TestTarget: |-
+    Generoidaan testi kohteesta:
+    {keys}
+flask:
+  CorrectResult: |-
+    Sovelluksen vastaus oli oikea.
+  CorrectState: |-
+    Tietokanta oli oikeassa tilassa.
+  FunctionName: |-
+    Testataan reittiä {route}...
+  IncorrectResult: |-
+    Sovelluksen vastaus oli väärä.
+  IncorrectState: |-
+    Tietokanta oli virheellisessä tilassa.
+  NoFlaskApp: |-
+    Moduulista {name} ei löytynyt Flask app -objektia.
+  PrintDatabase: |-
+    Tietokannan alkutila:
+    {db}
+  PrintReference: |-
+    Odotettu vastaus:
+    Koodi: {code}
+    Arvo(t): {ref}
+  PrintStderr: |-
+    Pyyntöä toteuttaessa tapahtui poikkeus:
+    {{{{{{
+    {stderr}
+    }}}}}}
+  PrintStudentOutput: |-
+    Vastauksen koko sisältö:
+    {output}
+  PrintStudentResult: |-
+    Sovelluksen vastaus:
+    Koodi: {code}
+    Arvo(t): {res}
+  PrintTestRequest: |-
+    Testattu URL: {{{{{{{url}{query}}}}}}}. Testidata:
+    {data}
+  TestState: |-
+    Testataan tietokannan tila...
+  fail_invalid_added: |-
+    Virheellinen objekti oli tallentunut.
+  fail_model_class_super: |-
+    Malliluokka ei periytynyt Model:sta.
+  fail_no_model_class: |-
+    Oikean nimistä malliluokkaa ei löytynyt.
+  fail_unable_to_query: |-
+    Tietokantakyselyä ei voitu tehdä.
+  fail_valid_not_added: |-
+    Tallennettua objektia ei lyötynyt tietokannasta.
+db:
+  CorrectAccept: |-
+    Tietokanta hyväksyi oikeanlaisen objektin.
+  CorrectReject: |-
+    Tietokanta hylkäsi virheellisen objektin.
+  IncorrectAccept: |-
+    Tietokanta hyväksyi virheellisen objektin.
+  IncorrectReject: |-
+    Tietokanta hylkäsi oikeanlaisen objektin.
+  ModelError: |-
+    Malliluokassa oli virhe, joka esti testiobjektien luomisen:
+    {emsg}.
+  PrintTestObject: |-
+    Objektin attribuutit:
+    {instance}
+  RejectReason: |-
+    Hylkäämisen syy: {reason}
+  StartDbTest: |-
+    Testataan luotua tietokantaa...
+model:
+  CorrectFields: |-
+    Malliluokassa oli kaikki vaaditut kentät.
+  MissingFields: |-
+    Malliluokasta puuttui seuraavat kentät:
+    {fields}
+  MissingModel: |-
+    Malliluokkaa {name} ei löytynyt.
+  NotModel: |-
+    Luokka {name} ei ollut Model-tyyppiä.
+  StartModelTest: |-
+    Testataan malliluokan {name} kentät...
