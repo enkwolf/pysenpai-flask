@@ -1,4 +1,4 @@
-createdb:
+context:
   DbCreated: |-
     Database creation was successful.
   GenericErrorMsg: |-
@@ -49,19 +49,19 @@ view:
     The function was not found, or another kind of AttributeError occurred while calling the function.
     Additional information:
     {emsg}
-  CorrectMessage: |-
-    The function's output was correct.
+  CorrectData: |-
+    Data was processed corretly.
   CorrectResult: |-
     The application's response was correct.
   TargetName: |-
-    Testing route {name}...
+    Testing route {{{{{{{name}}}}}}}...
   GenericErrorMsg: |-
     An error occurred while calling the function.
     Additional information:
     {ename}: {emsg}
     Test the function on your computer to get more information.
-  IncorrectMessage: |-
-    The function's output was incorrect.
+  IncorrectData: |-
+    Data was not processed correctly.
   IncorrectResult: |-
     The application's response was incorrect
   IsNotFunction: |-
@@ -73,6 +73,9 @@ view:
     Check that your function uses the specified formatting when printing.
     Reason provided by the checker:{reason}
   OutputPatternInfo: ""
+  PrintDatabaseState: |-
+    Database state representation:
+    {data}
   PrintExcLine: |-
     Caused by line {lineno}:
     {{{{{{{line}}}}}}}
@@ -80,16 +83,85 @@ view:
     Using query string:
     {inputs}
   PrintReference: |-
-    Expected result: {ref}
+    Expected response:
+    Status code: {ref.status_code}
+    Parsed data: {ref.parsed_data}
   PrintStudentOutput: |-
     Response body:
+    {{{{{{
     {output}
+    }}}}}}
   PrintStudentResult: |-
-    Data parsed from your application's response:
-    {res}
+    Your application's response:
+    Status code: {res.status_code}
+    Parsed data: {res.parsed_data}
   PrintTestVector: |-
     Request address:
     {call}
+  PrintTestData: |-
+    Data used in the test:
+    {data}
+  RepeatingResult: |-
+    The function produced the same result twice in succession. This usually means the function is not reacting properly to arguments or inputs.
+    This is especially likely if this message pops up repeatedly.
+  SystemExit: |-
+    The program was terminated through the use of:
+    quit(), exit(), sys.exit(), raise SystemExit (etc.)
+    Your program needs to be implemented such a way that it doesn't need any of these.
+  TypeError: |-
+    The function expects an incorrect number of arguments. Alternatively another kind of TypeError occurred while calling the function.
+    Additional information:
+    {emsg}
+commit:
+  AdditionalInfo: |-
+    The checker gave the following as additional information:
+  AdditionalTests: |-
+    Performing additional tests that may suggest cause for the error...
+  AttributeError: |-
+    AttributeError occurred while committing the model.
+    Additional information:
+    {emsg}
+  CorrectMessage: |-
+    Unused message
+  CorrectResult: |-
+    The commit's outcome was correct.
+  TargetName: |-
+    Testing model {{{{{{{name}}}}}}}...
+  GenericErrorMsg: |-
+    An error occurred while committing the model instance
+    Additional information:
+    {ename}: {emsg}
+    Test the program on your computer to get more information.
+  IncorrectMessage: |-
+    Unused message
+  IncorrectResult: |-
+    The commit's outcome was incorrect.
+  IsNotFunction: |-
+    An object called {name} was found, but it was not a function.
+    Take care to not overwrite the function with another value in your main program!
+  MessageInfo: ""
+  OutputParseError: |-
+    Parsing the function's output for result values was not successful.
+    Check that your function uses the specified formatting when printing.
+    Reason provided by the checker:{reason}
+  OutputPatternInfo: ""
+  PrintDatabaseState: |-
+    Database state representation:
+    {data}
+  PrintExcLine: |-
+    Caused by line {lineno}:
+    {{{{{{{line}}}}}}}
+  PrintInputVector: |-
+    Unused message
+  PrintReference: |-
+    Expected outcome: {ref}
+  PrintStudentOutput: |-
+    Unused message
+  PrintStudentResult: |-
+    Outcome of the commit: {res}
+  PrintTestVector: |-
+    Model instance attributes:
+    {args}
   PrintTestData: |-
     Data used in the test:
     {data}

@@ -1,3 +1,5 @@
+from sqlalchemy.orm.attributes import InstrumentedAttribute
+
 def default_client_getter(st_module, st_app):
     return st_app.test_client()
 
@@ -20,12 +22,12 @@ def default_response_validator(ref, res):
 def default_db_populator(st_module, db):
     pass
 
-def default_route_presenter(value):
-    return "{{{" + value.replace("{", "<").replace("}", ">") + "}}}"
+def default_route_presenter(value, method):
+    return "{{{[" + method.upper() + "] " + value.replace("{", "<").replace("}", ">") + "}}}"
 
 def default_query_presenter(value):
     if value:
-        return "?" + "&".join("{}={}".format(*pair) for pair in value.items())
+        return "{{{" + "?" + "&".join("{}={}".format(*pair) for pair in value.items()) + "}}}"
     else:
         return ""
 
@@ -41,7 +43,7 @@ def default_document_presenter(value):
         return "{{{\n" + repr(value) + "\n}}}"
 
 def default_response_presenter(value):
-    return value.parsed_data
+    return value
 
 def default_output_presenter(value):
     content = html.escape(value.decode("utf-8"))

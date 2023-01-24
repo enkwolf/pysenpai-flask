@@ -4,3 +4,5 @@ class NoFlaskApp(Exception):
 class NoFlaskDb(Exception):
     pass
 
+class NoModelClass(Exception):
+    pass

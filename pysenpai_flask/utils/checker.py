@@ -1,5 +1,9 @@
 import flask
 import flask_sqlalchemy
+import inspect
+import os
+import tempfile
+from pysenpai_flask.exceptions import NoModelClass, NoFlaskApp, NoFlaskDb
 
 class RefResponse(object):
     status_code = 0
@@ -19,6 +23,30 @@ class GeneratedRequest(object):
         self.query = query or []
         self.extra_kw = extra_kw or {}
         self.data = data or []
+
+
+class SqliteInterface(object):
+
+    def configure(self, app, db_handle, st_module):
+        self.app = app
+        self.db_handle = db_handle
+        self.db_handle.create_all()
+        self.st_module = st_module
+
+    def populate(self):
+        pass
+
+    def rollback(self):
+        self.db_handle.session.rollback()
+
+    def clean(self):
+        self.db_handle.drop_all()
+        self.db_handle.session.remove()
+
+    def __str__(self):
+        return ""
+
+
 
 
 def find_app(st_module):
