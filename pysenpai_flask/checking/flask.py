@@ -143,6 +143,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
 
     # One time preparations
     save = sys.stdout
+    save_err = sys.stderr
     msgs = load_messages(lang, category, module=msg_module)
     msgs.update(custom_msgs)
 
@@ -162,6 +163,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
     prev_res = None
 
     o = StringOutput()
+    err = StringOutput()
 
     for i, test in enumerate(test_cases):
         json_output.new_run()
@@ -191,6 +193,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
 
         # Test preparations
         sys.stdout = o
+        sys.stderr = err
         o.clear()
 
         # Calling the student function
@@ -205,6 +208,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 res = e
             else:
                 sys.stdout = save
+                sys.stderr = save_err
                 etype, evalue, etrace = sys.exc_info()
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
@@ -221,6 +225,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
 
         # Validating function results
         sys.stdout = save
+        sys.stderr = save_err
         if not hide_output:
             output(msgs.get_msg("PrintStudentOutput", lang), Codes.INFO, output=o.content)
 
