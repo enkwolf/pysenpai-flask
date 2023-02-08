@@ -40,6 +40,7 @@ class SqliteInterface(object):
         self.db_handle.session.rollback()
 
     def clean(self):
+        self.rollback()
         self.db_handle.drop_all()
         self.db_handle.session.remove()
 

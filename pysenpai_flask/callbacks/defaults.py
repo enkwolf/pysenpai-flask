@@ -1,3 +1,4 @@
+import json
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 
 def default_client_getter(st_module, st_app):
