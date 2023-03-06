@@ -3,14 +3,18 @@ import flask_sqlalchemy
 import inspect
 import os
 import tempfile
+from functools import wraps
 from pysenpai_flask.exceptions import NoModelClass, NoFlaskApp, NoFlaskDb
+
 
 class RefResponse(object):
     status_code = 0
     data = ""
     parsed_data = ""
 
+
     def __init__(self, **kwargs):
+        self.headers = {}
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -65,3 +69,13 @@ def find_db(st_module):
                 return getattr(st_module, name)
     else:
         raise NoFlaskDb
+
+def client_from_module(function):
+
+    @wraps(function)
+    def wrap(module, *args, **kwargs):
+        app = find_app(module)
+        client = app.test_client()
+        return function(client, *args, **kwargs)
+    return wrap
+

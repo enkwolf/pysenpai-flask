@@ -42,7 +42,7 @@ class FlaskTestCase(TestCase):
         self.correct = False
         self.data_correct = False
         self.output_correct = False
-        self.internal_config = internal_config
+        self.internal_config = internal_config or {}
         self.method = method
         self.presenters = {
             "arg": str,
@@ -61,7 +61,7 @@ class FlaskTestCase(TestCase):
         app = find_app(module)
         client = app.test_client()
         route = target.format(**self.args)
-        response = getattr(client, self.method)(route, query_string=self.inputs, json=self.data)
+        response = getattr(client, self.method.lower())(route, query_string=self.inputs, json=self.data)
         self.parse_response(response)
         self.output_response(response)
         return response
@@ -94,7 +94,10 @@ def run_with_context(category, test_target, st_module, test_cases, lang,
     try:
         app = find_app(st_module)
     except NoFlaskApp:
-        output(msgs.get_msg("NoFlaskApp", lang), Codes.ERROR)
+        output(
+            msgs.get_msg("NoFlaskApp", lang), Codes.ERROR,
+            name=test_target
+        )
         return 0
 
     with app.app_context():
@@ -104,7 +107,7 @@ def run_with_context(category, test_target, st_module, test_cases, lang,
                 db_interface.configure(app, db_handle, st_module)
                 db_interface.populate()
             except NoFlaskDb:
-                output(msgs.get_msg("NoFlaskDb", lang), Codes.ERROR)
+                output(msgs.get_msg("NoFlaskDb", lang), Codes.ERROR, name=st_module.__name__)
                 return 0
             except:
                 etype, evalue, etrace = sys.exc_info()
@@ -213,7 +216,8 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
                 elineno, eline = get_exception_line(st_module, etrace)
-                output(msgs.get_msg(ename, lang, default="GenericErrorMsg"), Codes.ERROR,
+                output(
+                    msgs.get_msg(ename, lang, default="GenericErrorMsg"), Codes.ERROR,
                     emsg=emsg,
                     ename=ename
                 )
@@ -229,7 +233,8 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
         if not hide_output:
             output(msgs.get_msg("PrintStudentOutput", lang), Codes.INFO, output=o.content)
 
-        output(msgs.get_msg("PrintStudentResult", lang), Codes.DEBUG,
+        output(
+            msgs.get_msg("PrintStudentResult", lang), Codes.DEBUG,
             res=test.present_object("res", res),
             output=o.content
         )
@@ -254,16 +259,27 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
             for msg_key, format_args in test.feedback(res, None, o.content):
                 output(msgs.get_msg(msg_key, lang), Codes.INFO, **format_args)
 
+        # Validate contents of the database
         if test.data_validator:
             try:
                 db_interface.rollback()
-                output(msgs.get_msg("PrintDatabaseState", lang), Codes.DEBUG,
+                output(
+                    msgs.get_msg("PrintDatabaseState", lang), Codes.DEBUG,
                     data=test.present_object("db", db_interface)
                 )
                 test.validate_data(db_interface)
                 output(msgs.get_msg("CorrectData", lang), Codes.CORRECT)
             except AssertionError as e:
                 output(msgs.get_msg(e, lang, "IncorrectData"), Codes.INCORRECT)
+            except Excepton as e:
+                etype, evalue, etrace = sys.exc_info()
+                ename = evalue.__class__.__name__
+                emsg = str(evalue)
+                output(
+                    msgs.get_msg("DbError", lang), codes.ERROR,
+                    emsg=emsg,
+                    ename=ename
+                )
 
         test.teardown()
         prev_res = res

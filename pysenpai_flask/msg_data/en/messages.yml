@@ -14,7 +14,11 @@ context:
     Populating DB....
   PopulatingError: |-
     Populating failed. Check that your model classes match the assignment.
-doctest:
+document:
+  AdditionalTests: |-
+    Performing additional tests that may suggest cause for the error...
+  CorrectResult: |-
+    The document's contents were correct.
   DocumentParsed: |-
     Document was parsed successfully.
   DocumentTest: |-
@@ -22,13 +26,26 @@ doctest:
   ExceptionInfo: |-
     Request generation reported the following error:
     {etype}: {emgs}
+  GenericErrorMsg: |-
+    An error occurred while parsing the document.
+    Additional information:
+    {ename}: {emsg}
+    Test the function on your computer to get more information.
+  IncorrectResult: |-
+    The document's contents were not correct.
   InvalidDocument: |-
-    Document was invalid. Reason:
-    {emsg}
+    The document did not pass schema validation.
+    Reason: {reason}
   LoadDocument: |-
     Parsing document...
   NoRequest: |-
     Unable to generate request from the document.
+  PrintValidation: |-
+    Call used to validate the document:
+    {call}
+  PrintTestVector: |-
+    Call used to parse the document:
+    {call}
   ShowDocument: |-
     Contents of the current document:
     {doc}
@@ -37,9 +54,10 @@ doctest:
     {{{{{{
     {stderr}
     }}}}}}
-  TestTarget: |-
-    Generating test from:
-    {keys}
+  TargetName: |-
+    Testing document {{{{{{{name}}}}}}}.
+  ValidDocument: |-
+    The document passed schema validation.
 view:
   AdditionalInfo: |-
     The checker gave the following as additional information:
@@ -53,6 +71,9 @@ view:
     Data was processed corretly.
   CorrectResult: |-
     The application's response was correct.
+  DbError: |-
+    There was an error when trying to access the database. Check your model definitions. Error:
+    {ename}: {emsg}
   TargetName: |-
     Testing route {{{{{{{name}}}}}}}...
   GenericErrorMsg: |-

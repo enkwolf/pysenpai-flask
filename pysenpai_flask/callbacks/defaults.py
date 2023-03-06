@@ -1,4 +1,5 @@
 import json
+from pysenpai_flask.utils.checker import RefResponse
 from sqlalchemy.orm.attributes import InstrumentedAttribute
 
 def default_client_getter(st_module, st_app):
@@ -43,8 +44,17 @@ def default_document_presenter(value):
     except:
         return "{{{\n" + repr(value) + "\n}}}"
 
+
 def default_response_presenter(value):
-    return value
+    try:
+        formatted = "\n{{{highlight=json\n" + json.dumps(value.parsed_data, indent=4) + "\n}}}"
+    except:
+        formatted = value.parsed_data
+    return RefResponse(
+        status_code=value.status_code,
+        data=value.data,
+        parsed_data=formatted
+    )
 
 def default_output_presenter(value):
     content = html.escape(value.decode("utf-8"))
@@ -64,3 +74,17 @@ def default_instance_presenter(value):
 
 def default_data_parser(response):
     response.parsed_data = response.data.decode("utf-8")
+
+def valid_correct_grader(tests):
+    valid = True
+    correct = True
+    for test in tests:
+        if not test.schema_valid:
+            valid = False
+            break
+        if not test.correct:
+            correct = False
+
+    if valid:
+        return valid + correct
+    return 0
