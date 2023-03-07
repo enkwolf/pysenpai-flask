@@ -52,7 +52,14 @@ class SqliteInterface(object):
         return ""
 
 
-
+def strip_server_part(url):
+    if url.startswith("/"):
+        return url
+    url = url.removeprefix("http").removeprefix("s").removeprefix("://")
+    try:
+        return "/" + url.split("/", 1)[1]
+    except IndexError:
+        return "/"
 
 def find_app(st_module):
     for name in dir(st_module):
