@@ -133,7 +133,7 @@ def run_document_cases(category, test_target, st_document, test_cases, lang,
                 output(msgs.get_msg("AdditionalTests", lang), Codes.INFO)
 
                 # Extra feedback
-                for msg_key, format_args in test.feedback(res, None, o.content):
+                for msg_key, format_args in test.feedback(res, None, ""):
                     output(msgs.get_msg(msg_key, lang), Codes.INFO, **format_args)
 
         try:
