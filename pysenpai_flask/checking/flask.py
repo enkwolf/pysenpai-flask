@@ -215,7 +215,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 etype, evalue, etrace = sys.exc_info()
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
-                elineno, eline = get_exception_line(st_modu le, etrace)
+                elineno, eline = get_exception_line(st_module, etrace)
                 output(
                     msgs.get_msg(ename, lang, default="GenericErrorMsg"), Codes.ERROR,
                     emsg=emsg,
