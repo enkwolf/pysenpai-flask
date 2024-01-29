@@ -276,7 +276,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
                 output(
-                    msgs.get_msg("DbError", lang), codes.ERROR,
+                    msgs.get_msg("DbError", lang), Codes.ERROR,
                     emsg=emsg,
                     ename=ename
                 )
