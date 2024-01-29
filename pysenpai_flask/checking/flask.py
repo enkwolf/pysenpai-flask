@@ -215,7 +215,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 etype, evalue, etrace = sys.exc_info()
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
-                elineno, eline = get_exception_line(st_module, etrace)
+                elineno, eline = get_exception_line(st_modu le, etrace)
                 output(
                     msgs.get_msg(ename, lang, default="GenericErrorMsg"), Codes.ERROR,
                     emsg=emsg,
@@ -271,7 +271,7 @@ def run_flask_cases(category, test_target, st_module, test_cases, lang,
                 output(msgs.get_msg("CorrectData", lang), Codes.CORRECT)
             except AssertionError as e:
                 output(msgs.get_msg(e, lang, "IncorrectData"), Codes.INCORRECT)
-            except Excepton as e:
+            except Exception as e:
                 etype, evalue, etrace = sys.exc_info()
                 ename = evalue.__class__.__name__
                 emsg = str(evalue)
