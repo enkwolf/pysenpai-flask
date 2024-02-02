@@ -1,0 +1,8 @@
+[project]
+name = "PySenpai-Flask"
+version = "1.0.1"
+dependencies = [
+    "flask",
+    "flask-sqlalchemy",
+    "pysenpai"
+]
