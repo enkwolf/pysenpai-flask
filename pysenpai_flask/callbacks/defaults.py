@@ -53,7 +53,8 @@ def default_response_presenter(value):
     return RefResponse(
         status_code=value.status_code,
         data=value.data,
-        parsed_data=formatted
+        parsed_data=formatted,
+        headers=dict(value.headers),
     )
 
 def default_output_presenter(value):
