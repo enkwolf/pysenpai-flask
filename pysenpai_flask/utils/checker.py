@@ -51,6 +51,9 @@ class SqliteInterface(object):
     def __str__(self):
         return ""
 
+def add_protocol(url, procotol):
+    url = url.removeprefix("http").removeprefix("s").removeprefix("://")
+    return procotol + "://" + url
 
 def strip_server_part(url):
     if url.startswith("/"):

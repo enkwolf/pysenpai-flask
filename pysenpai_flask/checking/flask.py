@@ -3,6 +3,7 @@ import io
 import sys
 import pysenpai_flask.callbacks.defaults as flask_defaults
 from pysenpai.exceptions import NoAdditionalInfo, NotCallable, OutputParseError
+from pysenpai_flask.checking.http import HttpTestCase
 from pysenpai_flask.exceptions import NoFlaskApp, NoFlaskDb
 from pysenpai_flask.utils.checker import find_app, find_db
 import pysenpai.callbacks.defaults as defaults
@@ -14,75 +15,20 @@ from pysenpai.utils.internal import StringOutput, get_exception_line
 from pysenpai.checking.testcase import TestCase, run_test_cases
 
 
-class FlaskTestCase(TestCase):
+class FlaskTestCase(HttpTestCase):
 
-    def __init__(self, ref_result,
-                 args=None,
-                 inputs=None,
-                 data=None,
-                 weight=1,
-                 tag="",
-                 validator=flask_defaults.default_response_validator,
-                 output_validator=None,
-                 data_validator=None,
-                 eref_results=None,
-                 internal_config=None,
-                 presenters=None,
-                 method="get"):
 
-        self.args = args or {}
-        self.inputs = inputs or {}
-        self.data = data
-        self.weight = weight
-        self.tag = tag
-        self.ref_result = ref_result
-        self.validator = validator
-        self.data_validator = data_validator
-        self.eref_results = eref_results or []
-        self.correct = False
-        self.data_correct = False
-        self.output_correct = False
-        self.internal_config = internal_config or {}
-        self.method = method
-        self.presenters = {
-            "arg": str,
-            "input": flask_defaults.default_query_presenter,
-            "data": flask_defaults.default_document_presenter,
-            "ref": flask_defaults.default_response_presenter,
-            "res": flask_defaults.default_response_presenter,
-            "parsed": str,
-            "call": flask_defaults.default_route_presenter,
-            "db": str,
-        }
-        if presenters:
-            self.presenters.update(presenters)
-
-    def wrap(self, module, target):
+    def _get_response(self, module, route):
         app = find_app(module)
         client = app.test_client()
-        route = target.format(**self.args)
         response = getattr(client, self.method.lower())(route, query_string=self.inputs, json=self.data)
-        self.parse_response(response)
-        self.output_response(response)
         return response
-
-    def validate_result(self, res, parsed, output):
-        self.validator(self.ref_result, res)
-        self.correct = True
-
-    def validate_data(self, db):
-        self.data_validator(self.ref_result, self.args, self.inputs, self.data, db)
-        self.data_correct = True
 
     def parse_response(self, response):
         response.parsed_data = response.data.decode("utf-8")
 
     def output_response(self, response):
         print(response.data.decode("utf-8"))
-
-    def present_call(self, target):
-        return self.presenters["call"](target.format(**self.args), self.method)
-
 
 
 def run_with_context(category, test_target, st_module, test_cases, lang,

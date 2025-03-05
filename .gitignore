@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# checkers folder
+checkers/
+routine_sim.py
+grind_param_library.py
+temp*
+
+# Kate stuff
+*.kate-swp
