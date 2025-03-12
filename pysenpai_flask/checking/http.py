@@ -159,7 +159,21 @@ def run_http_cases(category, test_target, test_cases, lang,
 
         # If this fails the problem is with the checker itself
         # Therefore no handling
-        res = test.wrap(None, test_target)
+        try:
+            res = test.wrap(None, test_target)
+        except Exception as e:
+            sys.stdout = save
+            sys.stderr = save_err
+            etype, evalue, etrace = sys.exc_info()
+            ename = evalue.__class__.__name__
+            emsg = str(evalue)
+            output(
+                msgs.get_msg(ename, lang, default="GenericErrorMsg"), Codes.ERROR,
+                emsg=emsg,
+                ename=ename
+            )
+            test.teardown()
+            continue
 
         sys.stdout = save
         sys.stderr = save_err
