@@ -17,6 +17,16 @@ from pysenpai.checking.testcase import TestCase, run_test_cases
 
 class FlaskTestCase(HttpTestCase):
 
+    default_presenters = {
+        "arg": str,
+        "input": flask_defaults.default_query_presenter,
+        "data": flask_defaults.default_document_presenter,
+        "ref": flask_defaults.default_response_presenter,
+        "res": flask_defaults.default_response_presenter,
+        "parsed": str,
+        "call": flask_defaults.default_route_presenter,
+        "db": str,
+    }
 
     def _get_response(self, module, route):
         app = find_app(module)

@@ -25,6 +25,17 @@ def requests_response_presenter(value):
 
 class HttpTestCase(TestCase):
 
+    default_presenters = {
+        "arg": str,
+        "input": flask_defaults.default_query_presenter,
+        "data": flask_defaults.default_document_presenter,
+        "ref": flask_defaults.default_response_presenter,
+        "res": requests_response_presenter,
+        "parsed": str,
+        "call": flask_defaults.default_route_presenter,
+        "db": str,
+    }
+
     def __init__(self, ref_result,
                  args=None,
                  inputs=None,
@@ -58,16 +69,7 @@ class HttpTestCase(TestCase):
         self.internal_config = internal_config or {}
         self.method = method
         self.cert = cert
-        self.presenters = {
-            "arg": str,
-            "input": flask_defaults.default_query_presenter,
-            "data": flask_defaults.default_document_presenter,
-            "ref": flask_defaults.default_response_presenter,
-            "res": requests_response_presenter,
-            "parsed": str,
-            "call": flask_defaults.default_route_presenter,
-            "db": str,
-        }
+        self.presenters = self.default_presenters.copy()
         if presenters:
             self.presenters.update(presenters)
 
